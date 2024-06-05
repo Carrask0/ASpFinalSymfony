@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1 class="biblioteca-detail-title">{{ biblioteca.nombre }}</h1>
+
+<p class="biblioteca-detail-info"><strong>Dirección:</strong> {{ biblioteca.direccion }}</p>
+<p class="biblioteca-detail-info"><strong>Ciudad:</strong> {{ biblioteca.ciudad }}</p>
+<p class="biblioteca-detail-info"><strong>Horario de Apertura:</strong> {{ biblioteca.horarioApertura|date('H:i') }}</p>
+<p class="biblioteca-detail-info"><strong>Horario de Cierre:</strong> {{ biblioteca.horarioCierre|date('H:i') }}</p>
+<p class="biblioteca-detail-info"><strong>Fecha de Fundación:</strong> {{ biblioteca.fechaFundacion|date('Y-m-d') }}</p>
+<p class="biblioteca-detail-info"><strong>Normas:</strong> {{ biblioteca.normas }}</p>
+
+
+<br>
+
+<h2 class="biblioteca-detail-libros-header">Buscar Libros en la biblioteca</h2>
+<div class="biblioteca-detail-search-menu">
+    <form method="get">
+        <input type="text" name="titulo" value="{{ titulo }}" placeholder="Título del libro" class="biblioteca-detail-search-input">
+        <input type="text" name="autor" value="{{ autor }}" placeholder="Autor del libro" class="biblioteca-detail-search-input">
+        <input type="text" name="editorial" value="{{ editorial }}" placeholder="Editorial del libro" class="biblioteca-detail-search-input">
+        <button type="submit" class="biblioteca-detail-search-button">Buscar</button>
+    </form>
+</div>
+
+{% if titulo or autor or editorial %}
+    <p class="biblioteca-detail-filter-message">Mostrando libros filtrados por:
+        {% if titulo %} Título: {{ titulo }} {% endif %}
+        {% if autor %} Autor: {{ autor }} {% endif %}
+        {% if editorial %} Editorial: {{ editorial }} {% endif %}
+    </p>
+{% endif %}
+
+<br>
+
+<div class="biblioteca-detail-libros-header">
+    <h2 class="biblioteca-detail-libros-title">Libros</h2>
+    <a href="{{ path('form_create_libro') }}" class="biblioteca-detail-create-button">
+        <i class="fas fa-plus"></i> 
+    </a>
+</div>
+
+<ul class="biblioteca-detail-libros-list">
+    {% for libro in libros %}
+    <li class="biblioteca-detail-libro-item">
+        <div class="biblioteca-detail-libro-item-content">
+            <h3 class="biblioteca-detail-libro-title">{{ libro.titulo }}</h3>
+            <div class="biblioteca-detail-libro-actions">
+                <a href="{{ path('delete_libro', {'id': libro.id}) }}" class="biblioteca-detail-delete-button">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+                <a href="{{ path('form_edit_libro', {'id': libro.id}) }}" class="biblioteca-detail-edit-button">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </div>
+        </div>
+        <p class="biblioteca-detail-libro-info"><strong>Autor:</strong> {{ libro.autor }}</p>
+        <p class="biblioteca-detail-libro-info"><strong>Sinopsis:</strong> {{ libro.sinopsis }}</p>
+        <p class="biblioteca-detail-libro-info"><strong>Número de Ejemplares:</strong> {{ libro.numeroEjemplares }}</p>
+        <a href="{{ path('libro_detail', {'id': libro.id}) }}" class="biblioteca-detail-libro-info">View Details</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

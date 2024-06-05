@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="lista-libros-header">
+    <h1>Libros</h1>
+    <a href="{{ path('form_create_libro') }}" class="lista-libros-create-button">
+        <i class="fas fa-plus"></i> 
+    </a>
+</div>
+
+<div class="lista-libros-search-container">
+    <form method="get" class="lista-libros-search-form">
+        <input type="text" name="nombre" placeholder="Nombre del libro" class="lista-libros-search-input" value="{{ nombre }}">
+        <button type="submit" class="lista-libros-search-button">Buscar</button>
+    </form>
+    {% if nombre %}
+        <p class="lista-libros-filter-message">Mostrando libros filtrados por: 
+            Nombre: {{ nombre }}
+        </p>
+    {% endif %}
+</div>
+
+<ul class="lista-libros-libro-list">
+    {% for libro in libros %}
+    <li class="lista-libros-libro-item">
+        <div class="lista-libros-libro-content">
+            <h2 class="lista-libros-libro-title">{{ libro.titulo }}</h2>
+            <div class="lista-libros-button-container">
+                <a href="{{ path('delete_libro', {'id': libro.id}) }}" class="lista-libros-button-delete">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+                <a href="{{ path('form_edit_libro', {'id': libro.id}) }}" class="lista-libros-button-edit">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </div>
+        </div>
+        <p class="lista-libros-libro-info"><strong>Autor:</strong> {{ libro.autor }}</p>
+        <p class="lista-libros-libro-info"><strong>Sinopsis:</strong> {{ libro.sinopsis }}</p>
+        <p class="lista-libros-libro-info"><strong>Número de Ejemplares:</strong> {{ libro.numeroEjemplares }}</p>
+        <a href="{{ path('libro_detail', {'id': libro.id}) }}" class="lista-libros-detail-link">View Details</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

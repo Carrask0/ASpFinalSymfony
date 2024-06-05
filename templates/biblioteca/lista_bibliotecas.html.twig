@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="lista-bibliotecas-header">
+    <h1>Bibliotecas</h1>
+    <a href="{{ path('form_create_biblioteca') }}" class="lista-bibliotecas-create-button">
+        <i class="fas fa-plus"></i> 
+    </a>
+</div>
+
+<div class="lista-bibliotecas-search-container">
+    <form method="get" class="lista-bibliotecas-search-form">
+        <input type="text" name="nombre" placeholder="Nombre de biblioteca" class="lista-bibliotecas-search-input" value="{{ nombre }}">
+        <input type="text" name="ciudad" placeholder="Ciudad" class="lista-bibliotecas-search-input" value="{{ ciudad }}">
+        <button type="submit" class="lista-bibliotecas-search-button">Buscar</button>
+    </form>
+    {% if nombre or ciudad %}
+        <p class="lista-bibliotecas-filter-message">Mostrando bibliotecas filtradas por: 
+            {% if nombre %}
+                Nombre: {{ nombre }}
+            {% endif %}
+            {% if ciudad %}
+                Ciudad: {{ ciudad }}
+            {% endif %}
+        </p>
+    {% endif %}
+</div>
+
+<ul class="lista-bibliotecas-biblioteca-list">
+    {% for biblioteca in bibliotecas %}
+    <li class="lista-bibliotecas-biblioteca-item">
+        <div class="lista-bibliotecas-biblioteca-content">
+            <h2 class="lista-bibliotecas-biblioteca-name">{{ biblioteca.nombre }}</h2>
+            <div class="lista-bibliotecas-button-container">
+                <a href="{{ path('delete_biblioteca', {'id': biblioteca.id}) }}" class="lista-bibliotecas-button-delete">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+                <a href="{{ path('form_edit_biblioteca', {'id': biblioteca.id}) }}" class="lista-bibliotecas-button-edit">
+                    <i class="fas fa-edit"></i>
+                </a>
+            </div>
+        </div>
+        <p class="lista-bibliotecas-biblioteca-info"><strong>Dirección:</strong> {{ biblioteca.direccion }}</p>
+        <p class="lista-bibliotecas-biblioteca-info"><strong>Ciudad:</strong> {{ biblioteca.ciudad }}</p>
+        <a href="{{ path('biblioteca_detail', {'id': biblioteca.id}) }}" class="lista-bibliotecas-detail-link">View Details</a>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endblock %}

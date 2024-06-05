@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>{{ biblioteca is defined ? 'Editar' : 'Crear' }} Biblioteca</h1>
+
+<form method="post" class="form-biblioteca">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="form-biblioteca-submit">{{ biblioteca is defined ? 'Editar' : 'Crear' }} Biblioteca</button>
+    {{ form_end(form) }}
+</form>
+{% endblock %}

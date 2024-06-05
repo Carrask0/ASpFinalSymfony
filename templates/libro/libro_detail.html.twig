@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="libro-detail-container">
+    <h1 class="libro-detail-title">{{ libro.titulo }}</h1>
+    <p class="libro-detail-info"><strong>Autor:</strong> {{ libro.autor }}</p>
+    <p class="libro-detail-info"><strong>Sinopsis:</strong> {{ libro.sinopsis }}</p>
+    <p class="libro-detail-info"><strong>Año de Publicación:</strong> {{ libro.publicacion|date('Y') }}</p>
+    <p class="libro-detail-info"><strong>Editorial:</strong> {{ libro.editorial }}</p>
+    <p class="libro-detail-info"><strong>ISBN:</strong> {{ libro.isbn }}</p>
+    <p class="libro-detail-info"><strong>Número de Ejemplares:</strong> {{ libro.numeroEjemplares }}</p>
+    <p class="libro-detail-info"><strong>Biblioteca:</strong> <a href="{{ path('biblioteca_detail', {'id': libro.biblioteca.id}) }}" class="libro-detail-biblioteca-link">{{ libro.biblioteca.nombre }}</a></p>
+</div>
+
+{% endblock %}

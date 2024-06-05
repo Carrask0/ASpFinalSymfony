@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}
+        Bibliotecas
+      {% endblock %}
+    </title>
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+    <!-- Other meta tags and stylesheets -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+
+  <nav class="navbar">
+    <ul class="navbar-menu">
+      <li class="navbar-item"><a href="javascript:history.back()" ><i class="fas fa-arrow-left"></i></a></li>
+      <li class="navbar-item"><a href="{{ path('lista_bibliotecas') }}"><i class="fas fa-home"></i></a></li>
+      <li class="navbar-item"><a href="{{ path('lista_libros') }}"><i class="fas fa-book"></i></a></li>
+    </ul>
+  </nav>
+
+  <div class="content">
+    {% block body %}{% endblock %}
+  </div>
+</body>
+</html>

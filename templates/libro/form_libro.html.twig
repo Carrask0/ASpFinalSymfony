@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>{{ libro is defined ? 'Editar' : 'Crear' }} Libro</h1>
+
+<form method="post" class="form-libro">
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <button type="submit" class="form-libro-submit">{{ libro is defined ? 'Editar' : 'Crear' }} Libro</button>
+    {{ form_end(form) }}
+</form>
+{% endblock %}
